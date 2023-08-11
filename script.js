@@ -70,6 +70,8 @@ btnmode.addEventListener("click", function () {
 });
 
 // Functions
+
+//API CALL
 function getUserData(gitUrl) {
   fetch(gitUrl)
     .then((response) => response.json())
@@ -82,6 +84,7 @@ function getUserData(gitUrl) {
     });
 }
 
+//RENDER
 function updateProfile(data) {
   if (data.message !== "Not Found") {
     noresults.style.display = "none";
@@ -128,20 +131,7 @@ function updateProfile(data) {
   }
 }
 
-//dark mode default
-const prefersDarkMode =
-  window.matchMedia &&
-  window.matchMedia("(prefers-color-scheme: dark)").matches;
-
-if (localStorage.getItem("dark-mode")) {
-  darkMode = localStorage.getItem("dark-mode");
-  darkModeProperties();
-} else {
-  localStorage.setItem("dark-mode", prefersDarkMode);
-  darkMode = prefersDarkMode;
-  lightModeProperties();
-}
-
+//SWITCH TO DARK MODE - activateDarkMode()
 function darkModeProperties() {
   root.setProperty("--lm-bg", "#141D2F");
   root.setProperty("--lm-bg-content", "#1E2A47");
@@ -152,8 +142,14 @@ function darkModeProperties() {
   modeicon.src = "./assets/images/sun-icon.svg";
   root.setProperty("--lm-icon-bg", "brightness(1000%)");
   darkMode = true;
+  console.log("darkmode changed to " + darkMode);
   localStorage.setItem("dark-mode", true);
+  console.log("setting dark mode to false");
+
+  console.log("setting dark mode to true");
 }
+
+//SWITCH TO LIGHT MODE - activateLightMode()
 function lightModeProperties() {
   root.setProperty("--lm-bg", "#F6F8FF");
   root.setProperty("--lm-bg-content", "#FEFEFE");
@@ -164,7 +160,32 @@ function lightModeProperties() {
   modeicon.src = "./assets/images/moon-icon.svg";
   root.setProperty("--lm-icon-bg", "brightness(100%)");
   darkMode = false;
+  console.log("darkmode changed to " + darkMode);
+
   localStorage.setItem("dark-mode", false);
+  console.log("setting dark mode to false");
 }
 
-getUserData(url + "theyashsawarkar");
+//INITIALISE UI
+function init() {
+  //initialise dark-mode variable to false;
+  //darkMode = true -> dark mode enable
+  //darMode = false -> light mode enable
+
+  darkMode = false;
+
+  const value = localStorage.getItem("dark-mode");
+
+  if (value === null) {
+    localStorage.setItem("dark-mode", darkMode);
+    lightModeProperties();
+  } else if (value == "true") {
+    darkModeProperties();
+  } else {
+    lightModeProperties();
+  }
+
+  getUserData(url + "theyashsawarkar");
+}
+
+init();
