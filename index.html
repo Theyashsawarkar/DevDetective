@@ -38,13 +38,10 @@
               placeholder="Enter a GitHub username..."
               required
             />
-            <div class="error">
-              <p id="no-results">no search results</p>
-            </div>
             <button class="btn-search" id="submit">Search</button>
           </div>
           <div class="profile-container">
-            <div class="profile-content">
+            <div class="profile-content p-c-active">
               <div class="profile-header">
                 <img id="avatar" src="#" alt="" />
                 <div class="profile-info-wrapper">
@@ -102,6 +99,12 @@
                 </div>
               </div>
             </div>
+            <img
+              src="./assets/no-search-found.png"
+              class="error"
+              id="no-results"
+              alt=""
+            />
           </div>
         </div>
       </main>

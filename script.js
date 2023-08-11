@@ -1,6 +1,7 @@
 //Variables
 const searchbar = document.querySelector(".searchbar-container");
 const profilecontainer = document.querySelector(".profile-container");
+const profileContent = document.querySelector(".profile-content");
 const root = document.documentElement.style;
 const get = (param) => document.getElementById(`${param}`);
 const url = "https://api.github.com/users/";
@@ -58,7 +59,8 @@ input.addEventListener(
 );
 
 input.addEventListener("input", function () {
-  noresults.style.display = "none";
+  noresults.classList.remove("e-active");
+  profileContent.classList.add("p-c-active");
 });
 
 btnmode.addEventListener("click", function () {
@@ -87,7 +89,8 @@ function getUserData(gitUrl) {
 //RENDER
 function updateProfile(data) {
   if (data.message !== "Not Found") {
-    noresults.style.display = "none";
+    noresults.classList.remove("e-active");
+    profileContent.classList.add("p-c-active");
     function checkNull(param1, param2) {
       if (param1 === "" || param1 === null) {
         param2.style.opacity = 0.5;
@@ -127,7 +130,8 @@ function updateProfile(data) {
     searchbar.classList.toggle("active");
     profilecontainer.classList.toggle("active");
   } else {
-    noresults.style.display = "block";
+    profileContent.classList.remove("p-c-active");
+    noresults.classList.add("e-active");
   }
 }
 
